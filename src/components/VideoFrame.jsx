@@ -3,20 +3,24 @@ import videoSrc from '../assets/video.mp4'
 
 function VideoFrame() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [showPlayButton, setShowPlayButton] = useState(true)
+  const [showMessage, setShowMessage] = useState(true)
   const videoRef = useRef(null)
 
   const handlePlay = () => {
     if (videoRef.current) {
-      videoRef.current.play()
-      setIsPlaying(true)
-      setShowPlayButton(false)
+      setShowMessage(false)
+      // Small delay to allow message to fade out
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play()
+          setIsPlaying(true)
+        }
+      }, 300)
     }
   }
 
   const handlePause = () => {
     setIsPlaying(false)
-    setShowPlayButton(true)
   }
 
   return (
@@ -37,27 +41,36 @@ function VideoFrame() {
         <div className="floating-heart heart-5">💞</div>
         <div className="floating-heart heart-6">💓</div>
 
-        {/* Video element */}
+        {/* Video element - hidden until message is clicked */}
         <video
           ref={videoRef}
           src={videoSrc}
-          className="birthday-video"
+          className={`birthday-video ${showMessage ? 'video-hidden' : 'video-visible'}`}
           playsInline
           onPause={handlePause}
           onEnded={handlePause}
           controls={isPlaying}
+          preload="none"
         />
 
-        {/* Custom play button overlay */}
-        {showPlayButton && (
-          <button 
-            className="video-play-button"
-            onClick={handlePlay}
-            aria-label="Play video"
-          >
-            <span className="play-icon">▶</span>
-            <span className="play-text">Watch</span>
-          </button>
+        {/* Message overlay - shown before video plays */}
+        {showMessage && (
+          <div className="video-message-overlay">
+            <div className="video-message-content">
+              <div className="video-message-heart">💝</div>
+              <div className="video-message-text">
+                A special message for you, my cutie! 💕
+              </div>
+              <button 
+                className="video-play-button"
+                onClick={handlePlay}
+                aria-label="Play video"
+              >
+                <span className="play-icon">▶</span>
+                <span className="play-text">Watch Message</span>
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </section>
