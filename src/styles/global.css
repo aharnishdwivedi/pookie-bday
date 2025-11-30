@@ -49,6 +49,9 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -582,6 +585,9 @@ body {
   align-items: center;
   min-height: 80vh;
   position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .video-wrapper {
@@ -592,6 +598,8 @@ body {
   padding: var(--spacing-md);
   aspect-ratio: 9 / 16;
   min-height: 500px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .birthday-video {
@@ -611,6 +619,8 @@ body {
   bottom: var(--spacing-md);
   z-index: 2;
   transition: opacity 0.3s ease;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .birthday-video.video-hidden {
@@ -622,6 +632,14 @@ body {
 .birthday-video.video-visible {
   opacity: 1;
   visibility: visible;
+}
+
+.birthday-video::-webkit-media-controls {
+  max-width: 100%;
+}
+
+.birthday-video video {
+  max-width: 100%;
 }
 
 /* Video message overlay */
@@ -935,6 +953,65 @@ body {
 /* ============================================
    RESPONSIVE DESIGN (MOBILE-FIRST)
    ============================================ */
+
+/* Mobile specific fixes */
+@media (max-width: 767px) {
+  .video-section {
+    padding: var(--spacing-xl) 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .video-wrapper {
+    width: calc(100% - var(--spacing-sm) * 2);
+    max-width: calc(100vw - var(--spacing-sm) * 2);
+    padding: var(--spacing-sm);
+    margin: 0 auto;
+  }
+
+  .birthday-video {
+    width: calc(100% - var(--spacing-sm) * 2);
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+    top: var(--spacing-sm);
+    bottom: var(--spacing-sm);
+  }
+
+  .video-message-overlay {
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+    top: var(--spacing-sm);
+    bottom: var(--spacing-sm);
+  }
+
+  .video-frame-decoration {
+    top: calc(var(--spacing-sm) - 8px);
+    left: calc(var(--spacing-sm) - 8px);
+    right: calc(var(--spacing-sm) - 8px);
+    bottom: calc(var(--spacing-sm) - 8px);
+  }
+
+  .tape-1 {
+    top: calc(var(--spacing-sm) - 10px);
+    left: calc(var(--spacing-sm) + 20px);
+  }
+
+  .tape-2 {
+    top: calc(var(--spacing-sm) - 10px);
+    right: calc(var(--spacing-sm) + 20px);
+  }
+
+  .tape-3 {
+    bottom: calc(var(--spacing-sm) - 10px);
+    left: calc(var(--spacing-sm) + 20px);
+  }
+
+  .tape-4 {
+    bottom: calc(var(--spacing-sm) - 10px);
+    right: calc(var(--spacing-sm) + 20px);
+  }
+}
 
 /* Tablet and up */
 @media (min-width: 768px) {
